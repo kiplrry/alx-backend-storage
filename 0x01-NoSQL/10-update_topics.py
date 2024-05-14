@@ -9,4 +9,3 @@ def update_topics(mongo_collection, name, topics):
     school document based on the name"""
     res = mongo_collection.update_one({"name": name},
                                       {"$set": {"topics": topics}})
-    return res
