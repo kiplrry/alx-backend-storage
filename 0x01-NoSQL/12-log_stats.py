@@ -16,7 +16,7 @@ def main():
     for method in methods:
         dic[method] = logs.count_documents(filter={"method": method})
     print(f"{num} logs")
-    print("Methods")
+    print("Methods:")
     for key, val in dic.items():
         print(f"\tmethod {key}: {val}")
 
