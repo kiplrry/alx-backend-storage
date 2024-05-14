@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """
-
+script that provides some stats about Nginx logs stored in MongoDB
 """
 from pymongo import MongoClient
 
 
 def main():
+    """ main function"""
     client = MongoClient()
     db = client.logs
     logs = db.nginx
@@ -18,3 +19,7 @@ def main():
     print("Methods")
     for key, val in dic.items():
         print(f"\tmethod {key}: {val}")
+
+
+if __name__ == "__main__":
+    main()
