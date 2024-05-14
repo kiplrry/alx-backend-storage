@@ -19,6 +19,9 @@ def main():
     print("Methods:")
     for key, val in dic.items():
         print(f"\tmethod {key}: {val}")
+    status = logs.count_documents(
+            {"method": "GET", "path": "/status"})
+    print(f'{status} status check')
 
 
 if __name__ == "__main__":
