@@ -28,7 +28,7 @@ class Cache():
         if fn:
             value = fn(value)
         return value
-    
+
     def get_int(self, val: str) -> int:
         """returns an int from key"""
         value = self._redis.get(val).decode('utf-8')
@@ -37,7 +37,7 @@ class Cache():
         except ValueError:
             value = 0
         return value
-    
+
     def get_str(self, val: str) -> str:
         """returns a str from key"""
         value = self._redis.get(val)
