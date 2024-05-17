@@ -13,7 +13,7 @@ def counter(method: Callable) -> Callable:
     r = redis.Redis()
 
     @wraps(method)
-    def wrapper(url):
+    def wrapper(url: str) -> str:
         r.incr(f'counts:{url}')
         res = r.get(url)
         if not res:
@@ -26,5 +26,5 @@ def counter(method: Callable) -> Callable:
 @counter
 def get_page(url: str) -> str:
     """func to make request to a url"""
-    res = requests.get(url).text
+    res: str = requests.get(url).text
     return res
