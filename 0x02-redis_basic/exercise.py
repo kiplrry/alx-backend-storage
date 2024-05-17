@@ -9,6 +9,18 @@ from uuid import uuid4
 from functools import wraps
 
 
+def call_history(method: Callable) -> Callable:
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        key = method.__qualname__
+        inputs = [*args, *kwargs.values()]
+        self._redis.lpush(f'{key}:inputs', *inputs)
+        out = method(self, *args, **kwargs)
+        self._redis.lpush(f'{key}:outputs', out)
+        return out
+    return wrapper
+
+
 def count_calls(method: Callable) -> Callable:
     @wraps(method)
     def wrapper(self, *args, **kwargs):
@@ -26,6 +38,7 @@ class Cache():
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @call_history
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """Stores a data with a random key"""
