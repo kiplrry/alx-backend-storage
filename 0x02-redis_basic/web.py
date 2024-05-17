@@ -26,5 +26,8 @@ def counter(method: Callable) -> Callable:
 @counter
 def get_page(url: str) -> str:
     """func to make request to a url"""
-    res: str = requests.get(url).text
+    try:
+        res: str = requests.get(url).text
+    except Exception:
+        res = ''
     return res
