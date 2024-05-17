@@ -14,7 +14,7 @@ def counter(method: Callable) -> Callable:
 
     @wraps(method)
     def wrapper(url: str) -> str:
-        r.incr(f'counts:{url}')
+        r.incr(f'count:{url}')
         res = r.get(url)
         if not res:
             res = method(url)
