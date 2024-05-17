@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
 """ Main file """
+from redis import Redis
+from web import get_page
 
-Cache = __import__('exercise').Cache
+url = 'http://slowwly.robertomurray.co.uk'
 
-cache = Cache()
+get_page(url)
 
-s1 = cache.store("first")
-print(s1)
-s2 = cache.store("secont")
-print(s2)
-s3 = cache.store("third")
-print(s3)
+r = Redis()
 
-inputs = cache._redis.lrange("{}:inputs".format(cache.store.__qualname__), 0, -1)
-outputs = cache._redis.lrange("{}:outputs".format(cache.store.__qualname__), 0, -1)
-
-print("inputs: {}".format(inputs))
-print("outputs: {}".format(outputs))
+j = r.get(url)
+print(j)
+count = r.get(f'counts:{url}')
+print(count)
